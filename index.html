@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shmu's Automotive | Mobile Mechanic in Dayton, OH</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Micro-animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Custom Checkbox Styling */
+        input[type="checkbox"] {
+            accent-color: #000000;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+        
+        .service-checkbox-card {
+            transition: all 0.2s ease;
+        }
+        
+        .service-checkbox-card:hover {
+            background-color: #f3f4f6;
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .service-checkbox-card:has(input:checked) {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Service Card Hover */
+        .service-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: 8px 8px 0px #000;
+        }
+
+        /* Typewriter Cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        ::selection {
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="border-b-4 border-black sticky top-0 bg-white z-50 transition-shadow duration-300 shadow-sm">
+        <!-- Mobile Alert Banner (No more flashing!) -->
+        <div class="bg-black text-white text-center py-2 px-4 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+            Mobile Oil Changes - Serving a 50 Mile Radius of Dayton, OH
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left cursor-pointer hover:opacity-80 transition-opacity" onclick="window.scrollTo(0,0)">
+                <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-12 sm:h-16 object-contain mix-blend-multiply">
+            </div>
+            
+            <nav class="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
+                <a href="#services" class="hover:underline underline-offset-4 decoration-2 transition-all">The Work</a>
+                <a href="#pricing" class="hover:underline underline-offset-4 decoration-2 transition-all">The Bill</a>
+                <a href="#book" class="bg-black text-white px-5 py-2 border-2 border-black hover:bg-white hover:text-black transition-colors duration-300 hover:shadow-[4px_4px_0px_#000]">
+                    Book Now
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pt-4 pb-12 space-y-24">
+
+        <!-- HERO SECTION -->
+        <section class="max-w-4xl mt-2 mb-16 space-y-8">
+            <!-- Copy & Buttons -->
+            <div class="space-y-8 animate-on-scroll">
+                <div class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 text-sm sm:text-base font-bold uppercase tracking-widest">
+                    <i data-lucide="map-pin" class="w-4 h-4 fill-white"></i>
+                    Dayton, OH & 50-Mile Radius
+                </div>
+                
+                <h1 class="text-6xl sm:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tighter leading-[0.9]">
+                    The <span class="inline-block bg-black text-white px-2 transform -skew-x-6 pb-1">Shmu</span><br>Difference.
+                </h1>
+                
+                <div class="min-h-[100px] sm:min-h-[80px]">
+                    <p id="typewriter-text" class="text-xl sm:text-2xl text-gray-800 font-bold leading-relaxed typing-cursor" data-text="No waiting rooms. No upsells. Just a clean, professional oil change in your own driveway - done in 30 minutes."></p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                    <a href="#book" class="bg-black text-white font-black uppercase tracking-widest py-4 px-8 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3">
+                        <i data-lucide="wrench" class="w-5 h-5"></i>
+                        Book Your Oil Change
+                    </a>
+                    <a href="#pricing" class="bg-white text-black font-black uppercase tracking-widest py-4 px-8 border-4 border-black hover:bg-black hover:text-white transition-all duration-300 flex items-center justify-center gap-3">
+                        See Pricing
+                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SERVICES SECTION -->
+        <section id="services" class="scroll-mt-40">
+            <div class="animate-on-scroll flex items-center gap-4 mb-10">
+                <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">What I Do</h3>
+                <div class="flex-grow h-1 bg-black"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service Items -->
+                <div class="animate-on-scroll service-card border-4 border-black p-6 sm:p-8 bg-white flex flex-col h-full">
+                    <div class="bg-black text-white w-14 h-14 flex items-center justify-center mb-6 shrink-0">
+                        <i data-lucide="droplet" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase mb-3">The Driveway Oil Change</h4>
+                    <p class="text-gray-700 font-medium leading-relaxed">Strictly full synthetic. Standard, high-mileage, or premium Valvoline. I bring the oil, the filter, and the drain pan. Not a single drop left on your driveway.</p>
+                </div>
+
+                <div class="animate-on-scroll delay-100 service-card border-4 border-black p-6 sm:p-8 bg-white flex flex-col h-full">
+                    <div class="bg-black text-white w-14 h-14 flex items-center justify-center mb-6 shrink-0">
+                        <i data-lucide="wind" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase mb-3">Filters That Need Changing</h4>
+                    <p class="text-gray-700 font-medium leading-relaxed">Air and cabin filters. I'll show you the dirty one first. If it looks like a squirrel built a summer home in it, we replace it. If not, it stays.</p>
+                </div>
+
+                <div class="animate-on-scroll delay-200 service-card border-4 border-black p-6 sm:p-8 bg-white flex flex-col h-full">
+                    <div class="bg-black text-white w-14 h-14 flex items-center justify-center mb-6 shrink-0">
+                        <i data-lucide="flask-conical" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase mb-3">Fluid Top-Offs</h4>
+                    <p class="text-gray-700 font-medium leading-relaxed">Windshield washer fluid, coolant, power steering. If it's low, I top it off while I'm in there. No sneaky "fluid service" fees attached.</p>
+                </div>
+
+                <div class="animate-on-scroll service-card border-4 border-black p-6 sm:p-8 bg-white flex flex-col h-full">
+                    <div class="bg-black text-white w-14 h-14 flex items-center justify-center mb-6 shrink-0">
+                        <i data-lucide="scan-line" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase mb-3">Free Diagnostics</h4>
+                    <p class="text-gray-700 font-medium leading-relaxed">Check engine light glaring at you? I'll plug in the magic computer and tell you why your car is angry. Free with any oil change.</p>
+                </div>
+
+                <div class="animate-on-scroll delay-100 service-card border-4 border-black p-6 sm:p-8 bg-white flex flex-col h-full">
+                    <div class="bg-black text-white w-14 h-14 flex items-center justify-center mb-6 shrink-0">
+                        <i data-lucide="zap" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase mb-3">Battery Tests & Jumps</h4>
+                    <p class="text-gray-700 font-medium leading-relaxed">Because sometimes it's not the oil, it's just a dead battery. I can test it, jump it, or swap it right in your driveway.</p>
+                </div>
+
+                <div class="animate-on-scroll delay-200 service-card border-4 border-black p-6 sm:p-8 bg-white flex flex-col h-full">
+                    <div class="bg-black text-white w-14 h-14 flex items-center justify-center mb-6 shrink-0">
+                        <i data-lucide="lightbulb" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase mb-3">Wipers & Bulbs</h4>
+                    <p class="text-gray-700 font-medium leading-relaxed">Streaky wipers or a burnt-out headlight? I'll swap them out while the oil drains so you can actually see where you're going.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="pricing" class="scroll-mt-32">
+            <div class="animate-on-scroll flex items-center gap-4 mb-10">
+                <div class="flex-grow h-1 bg-black"></div>
+                <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Straightforward Pricing</h3>
+                <div class="flex-grow h-1 bg-black"></div>
+            </div>
+
+            <div class="animate-on-scroll bg-white border-4 border-black shadow-[8px_8px_0px_#000]">
+                <!-- Header -->
+                <div class="bg-black text-white p-4 sm:p-6 text-center">
+                    <h4 class="font-black text-xl uppercase tracking-widest">The Lube Ledger</h4>
+                    <p class="text-sm font-medium text-gray-300 mt-1">Includes up to 5 quarts of oil and a premium filter. No hidden disposal fees.</p>
+                </div>
+
+                <!-- Ledger list -->
+                <div class="p-6 sm:p-10 space-y-0">
+                    
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b-2 border-black/10 hover:bg-gray-50 transition-colors px-2">
+                        <div class="pr-4">
+                            <h4 class="text-lg font-bold uppercase">Standard Full Synthetic</h4>
+                            <p class="text-sm text-gray-600 font-medium mt-1">The new standard. Better protection, lasts longer than the cheap stuff.</p>
+                        </div>
+                        <div class="mt-2 sm:mt-0 text-2xl font-black whitespace-nowrap">$70</div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b-2 border-black/10 hover:bg-gray-50 transition-colors px-2">
+                        <div class="pr-4">
+                            <h4 class="text-lg font-bold uppercase">High Mileage Full Synthetic</h4>
+                            <p class="text-sm text-gray-600 font-medium mt-1">For cars that have seen some things (75k+ miles). Extra seal protection.</p>
+                        </div>
+                        <div class="mt-2 sm:mt-0 text-2xl font-black whitespace-nowrap">$70</div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b-2 border-black/10 hover:bg-gray-50 transition-colors px-2">
+                        <div class="pr-4">
+                            <h4 class="text-lg font-bold uppercase">Advanced Full Synthetic</h4>
+                            <p class="text-sm text-gray-600 font-medium mt-1">Top-tier performance and extreme temperature protection for modern engines.</p>
+                        </div>
+                        <div class="mt-2 sm:mt-0 text-2xl font-black whitespace-nowrap">$80</div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b-2 border-black/10 hover:bg-gray-50 transition-colors px-2 bg-gray-50 border-l-4 border-l-black">
+                        <div class="pr-4 pl-2">
+                            <div class="flex items-center gap-3">
+                                <h4 class="text-lg font-bold uppercase text-black">Valvoline Restore & Protect</h4>
+                                <span class="bg-black text-white text-[10px] font-bold uppercase px-2 py-0.5 whitespace-nowrap">Shmu Recommended</span>
+                            </div>
+                            <p class="text-sm text-gray-600 font-medium mt-1">Full synthetic that actively cleans and removes deposits while you drive. The VIP treatment.</p>
+                        </div>
+                        <div class="mt-2 sm:mt-0 text-2xl font-black whitespace-nowrap pr-2">$90</div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b-2 border-black/10 hover:bg-gray-50 transition-colors px-2">
+                        <div class="pr-4">
+                            <h4 class="text-lg font-bold uppercase">OBD Diagnostics Scan</h4>
+                            <p class="text-sm text-gray-600 font-medium mt-1">Translating what your car is crying about.</p>
+                        </div>
+                        <div class="mt-2 sm:mt-0 text-2xl font-black whitespace-nowrap bg-black text-white px-3 py-1 -skew-x-6">
+                            FREE w/ Oil Change
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 hover:bg-gray-50 transition-colors px-2">
+                        <div class="pr-4">
+                            <h4 class="text-lg font-bold uppercase">Air & Cabin Filters</h4>
+                            <p class="text-sm text-gray-600 font-medium mt-1">Labor only. Only if it's actually dirty. I'll show you first.</p>
+                        </div>
+                        <div class="mt-2 sm:mt-0 text-2xl font-black whitespace-nowrap">$20</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICE AREA MAP -->
+        <section class="animate-on-scroll scroll-mt-32">
+            <div class="flex items-center gap-4 mb-6">
+                <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">My Turf</h3>
+                <div class="flex-grow h-1 bg-black"></div>
+            </div>
+            <p class="text-lg font-bold uppercase mb-6 flex items-center gap-2">
+                <i data-lucide="navigation" class="w-5 h-5"></i>
+                If you're within 50 miles of Dayton, OH, I'll bring the garage to you.
+            </p>
+            <div class="border-4 border-black p-2 bg-white shadow-[8px_8px_0px_#000]">
+                <!-- Embedded Google Map centered on Dayton, OH -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d196434.73634175374!2d-84.3411082531093!3d39.77970030000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x884080d5aeb3e4e9%3A0xc36270fb48c26c11!2sDayton%2C%20OH!5e0!3m2!1sen!2sus!4v1713500000000!5m2!1sen!2sus" width="100%" height="400" style="border:0; filter: grayscale(100%) contrast(120%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+
+        <!-- BOOKING SECTION -->
+        <section id="book" class="scroll-mt-32 pb-12">
+            <div class="animate-on-scroll flex items-center gap-4 mb-10">
+                <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Call In The Cavalry</h3>
+                <div class="flex-grow h-1 bg-black"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+                
+                <!-- Contact Info Sidebar -->
+                <div class="animate-on-scroll lg:col-span-2 space-y-8">
+                    <div>
+                        <h4 class="text-xl font-bold uppercase mb-4 border-b-2 border-black inline-block pb-1">How this works</h4>
+                        <p class="text-gray-700 font-medium mb-4 leading-relaxed">
+                            Check the boxes for what you need. Tell me what kind of vehicle you're driving. I'll read it, figure out a game plan, and hit you back within 24 hours to schedule a time and give you a real estimate. 
+                        </p>
+                        <p class="text-black font-bold uppercase text-sm border-l-4 border-black pl-3 mt-4">
+                            Need an oil change but also have a weird check engine light on? Select both and let's find out why.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-5 bg-gray-50 border-4 border-black p-6">
+                        <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
+                            <i data-lucide="phone" class="w-6 h-6"></i>
+                            <span class="font-bold text-lg">937-367-7089</span>
+                        </div>
+                        <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                            <span class="font-bold text-lg">sam@daytongrowth.co</span>
+                        </div>
+                        <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
+                            <i data-lucide="clock" class="w-6 h-6"></i>
+                            <span class="font-bold text-lg">Evenings & Weekends</span>
+                        </div>
+                        <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
+                            <i data-lucide="car" class="w-6 h-6"></i>
+                            <span class="font-bold text-lg">100% Mobile - I come to you</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="animate-on-scroll lg:col-span-3">
+                    
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="success-message" class="hidden border-4 border-black p-8 text-center bg-gray-50 flex-col items-center justify-center h-full min-h-[500px]">
+                        <div class="bg-black text-white p-5 rounded-full mb-6">
+                            <i data-lucide="thumbs-up" class="w-10 h-10"></i>
+                        </div>
+                        <h4 class="text-3xl font-black uppercase mb-3">Message Received.</h4>
+                        <p class="text-gray-700 font-medium text-lg">I've got your info. I'll be in touch shortly so we can get your car sorted out.</p>
+                        <button onclick="resetForm()" class="mt-8 border-2 border-black font-bold uppercase px-6 py-2 hover:bg-black hover:text-white transition-colors">
+                            Send Another Request
+                        </button>
+                    </div>
+
+                    <!-- Booking Form -->
+                    <form id="booking-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="font-bold uppercase text-sm tracking-wider">Your Name *</label>
+                                <input required type="text" name="name" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-bold uppercase text-sm tracking-wider">Phone Number *</label>
+                                <input required type="tel" name="phone" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="font-bold uppercase text-sm tracking-wider">What are you driving? (Year / Make / Model) *</label>
+                            <input required type="text" name="vehicle" placeholder="e.g. 2012 Honda Civic (The indestructible one)" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                        </div>
+
+                        <!-- Checkbox Multi-Select Area -->
+                        <div class="space-y-3 pt-2">
+                            <label class="font-bold uppercase text-sm tracking-wider flex items-center justify-between">
+                                What needs fixing? *
+                                <span class="text-xs text-gray-500">(Check all that apply)</span>
+                            </label>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer">
+                                    <input type="checkbox" name="services" value="Standard Full Synthetic">
+                                    Standard Full Synthetic
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer">
+                                    <input type="checkbox" name="services" value="High Mileage Full Synthetic">
+                                    High Mileage Full Synthetic
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer">
+                                    <input type="checkbox" name="services" value="Advanced Full Synthetic">
+                                    Advanced Full Synthetic
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer border-l-4">
+                                    <input type="checkbox" name="services" value="Valvoline Restore & Protect">
+                                    Valvoline Restore & Protect
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer">
+                                    <input type="checkbox" name="services" value="Air/Cabin Filter Check">
+                                    Check Air/Cabin Filters
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer">
+                                    <input type="checkbox" name="services" value="Wiper Replacement">
+                                    Wiper Blades
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer">
+                                    <input type="checkbox" name="services" value="Free Diagnosis">
+                                    Free Diagnosis Scan
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer">
+                                    <input type="checkbox" name="services" value="Headlight Replacement">
+                                    Headlight Bulb
+                                </label>
+                                <label class="service-checkbox-card border-2 border-black p-3 flex items-center gap-3 font-bold text-sm uppercase select-none cursor-pointer sm:col-span-2 bg-gray-50">
+                                    <input type="checkbox" name="services" value="Other">
+                                    Something else (Describe below)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="font-bold uppercase text-sm tracking-wider">Where is the car? *</label>
+                            <input required type="text" name="location" placeholder="City, Zip code, or full address" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="font-bold uppercase text-sm tracking-wider">The Details / Symptoms</label>
+                            <textarea name="notes" rows="4" placeholder="Be honest... how long has it been making that noise?" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black resize-none transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full group bg-black text-white font-black uppercase tracking-widest py-4 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3 shadow-[6px_6px_0px_#ccc] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
+                            <i data-lucide="wrench" class="w-5 h-5 group-hover:rotate-45 transition-transform duration-300"></i>
+                            Send It To Shmu
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white border-t-8 border-gray-900 py-12 text-center">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center">
+            <div class="mb-6">
+                <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-20 sm:h-24 object-contain mx-auto invert mb-4">
+                <div class="w-16 h-1 bg-white mx-auto mt-4 mb-4"></div>
+                <div class="flex justify-center gap-4 mb-6">
+                    <i data-lucide="wrench" class="w-6 h-6"></i>
+                    <i data-lucide="car" class="w-6 h-6"></i>
+                </div>
+            </div>
+            <p class="text-gray-300 font-bold uppercase tracking-widest mb-2">The Shmu Difference &bull; Dayton, OH</p>
+            <p class="text-gray-500 font-medium text-sm mb-2">Mobile oil changes. No dealership BS.</p>
+            <p class="text-gray-600 text-xs mt-8 uppercase tracking-widest">
+                &copy; <span id="year"></span> Shmu's Automotive. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Micro-animations via Intersection Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(el => observer.observe(el));
+
+            // Typewriter Effect Logic
+            const typewriterEl = document.getElementById('typewriter-text');
+            if (typewriterEl) {
+                const textToType = typewriterEl.getAttribute('data-text');
+                typewriterEl.textContent = ''; // Clear fallback text
+                let isTyping = false;
+
+                const typewriterObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && !isTyping) {
+                        isTyping = true;
+                        let i = 0;
+                        function type() {
+                            if (i < textToType.length) {
+                                typewriterEl.textContent += textToType.charAt(i);
+                                i++;
+                                setTimeout(type, 35); // Typing speed
+                            } else {
+                                // Optional: Stop cursor blinking after typing finishes
+                                setTimeout(() => {
+                                    typewriterEl.classList.remove('typing-cursor');
+                                }, 3000);
+                            }
+                        }
+                        // Add slight delay before typing starts to allow scroll animation
+                        setTimeout(type, 500); 
+                        typewriterObserver.unobserve(typewriterEl);
+                    }
+                }, { threshold: 0.5 });
+
+                typewriterObserver.observe(typewriterEl);
+            }
+        });
+
+        // Form Handling Logic (Simulated for Frontend)
+        function handleFormSubmit(event) {
+            event.preventDefault(); 
+            
+            const form = event.target;
+            const checkedServices = Array.from(form.querySelectorAll('input[name="services"]:checked'))
+                                         .map(cb => cb.value);
+
+            if (checkedServices.length === 0) {
+                alert("Please select at least one service so I know what tools to pack.");
+                return;
+            }
+
+            console.log("Form Submitted! Checked Services:", checkedServices);
+
+            form.classList.add('hidden');
+            const successMsg = document.getElementById('success-message');
+            successMsg.classList.remove('hidden');
+            successMsg.classList.add('flex');
+            
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Reset form to book another appointment
+        function resetForm() {
+            const form = document.getElementById('booking-form');
+            const successMsg = document.getElementById('success-message');
+            
+            form.reset(); 
+            
+            successMsg.classList.add('hidden');
+            successMsg.classList.remove('flex');
+            
+            form.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
