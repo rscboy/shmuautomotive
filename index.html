@@ -94,6 +94,34 @@
             50% { opacity: 0; }
         }
 
+
+        .membership-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 10px 10px 0px #000;
+        }
+
+        .membership-input:focus,
+        .membership-select:focus {
+            outline: none;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .faq-answer {
+            display: none;
+        }
+
+        .faq-item.is-open .faq-answer {
+            display: block;
+        }
+
+        .faq-item.is-open .faq-chevron {
+            transform: rotate(180deg);
+        }
+
         ::selection {
             background: #000;
             color: #fff;
@@ -118,6 +146,7 @@
             <nav class="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
                 <a href="#services" class="hover:underline underline-offset-4 decoration-2 transition-all">The Work</a>
                 <a href="#pricing" class="hover:underline underline-offset-4 decoration-2 transition-all">The Bill</a>
+                <a href="#membership" class="hover:underline underline-offset-4 decoration-2 transition-all">Membership</a>
                 <a href="#book" class="bg-black text-white px-5 py-2 border-2 border-black hover:bg-white hover:text-black transition-colors duration-300 hover:shadow-[4px_4px_0px_#000]">
                     Book Now
                 </a>
@@ -152,6 +181,10 @@
                     <a href="#pricing" class="bg-white text-black font-black uppercase tracking-widest py-4 px-8 border-4 border-black hover:bg-black hover:text-white transition-all duration-300 flex items-center justify-center gap-3">
                         See Pricing
                         <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#membership" class="bg-yellow-300 text-black font-black uppercase tracking-widest py-4 px-8 border-4 border-black hover:bg-black hover:text-white transition-all duration-300 flex items-center justify-center gap-3">
+                        Maintenance Membership
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
                     </a>
                 </div>
             </div>
@@ -295,6 +328,177 @@
                         <div class="mt-2 sm:mt-0 text-2xl font-black whitespace-nowrap">$20</div>
                     </div>
 
+                </div>
+            </div>
+        </section>
+
+        <!-- MAINTENANCE MEMBERSHIP SECTION -->
+        <section id="membership" class="scroll-mt-32">
+            <div class="animate-on-scroll bg-black text-white border-4 border-black p-6 sm:p-10 shadow-[8px_8px_0px_#9ca3af]">
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="inline-flex items-center gap-2 bg-white text-black px-4 py-2 text-sm font-black uppercase tracking-widest">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            Annual Prepaid Maintenance
+                        </div>
+                        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase leading-none">Never Worry About Oil Changes Again</h2>
+                        <p class="text-lg sm:text-xl text-gray-200 font-bold leading-relaxed">Protect your vehicle with our annual maintenance membership. Convenient mobile service, full synthetic oil changes, and predictable maintenance costs all year long.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-bold uppercase tracking-wide">
+                            <div class="flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Mobile service at your home or workplace</div>
+                            <div class="flex items-center gap-3"><i data-lucide="droplets" class="w-5 h-5"></i> Full synthetic oil and premium filters</div>
+                            <div class="flex items-center gap-3"><i data-lucide="wallet" class="w-5 h-5"></i> No surprise maintenance costs</div>
+                            <div class="flex items-center gap-3"><i data-lucide="calendar-check" class="w-5 h-5"></i> Priority scheduling for members</div>
+                            <div class="flex items-center gap-3"><i data-lucide="cars" class="w-5 h-5"></i> Multi-vehicle savings available</div>
+                            <div class="flex items-center gap-3"><i data-lucide="clipboard-check" class="w-5 h-5"></i> Inspections at every visit</div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 bg-white text-black border-4 border-white p-6 shadow-[8px_8px_0px_#facc15]">
+                        <p class="font-black uppercase tracking-widest text-sm mb-2">Built for busy drivers</p>
+                        <p class="text-3xl font-black leading-tight mb-4">Preventive maintenance without the waiting room.</p>
+                        <p class="text-gray-700 font-semibold mb-6">Your membership is tied to the enrolled vehicle, keeps maintenance costs predictable, and helps protect vehicle longevity with regular full synthetic oil service.</p>
+                        <a href="#membership-enroll" class="w-full bg-black text-white font-black uppercase tracking-widest py-4 px-6 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3">
+                            Join Now
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+                <article class="animate-on-scroll membership-card border-4 border-black bg-white p-6 sm:p-8 flex flex-col">
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-sm font-black uppercase tracking-widest text-gray-500">Plan 1</p>
+                            <h3 class="text-2xl sm:text-3xl font-black uppercase">Single Vehicle Membership</h3>
+                        </div>
+                        <i data-lucide="car" class="w-12 h-12"></i>
+                    </div>
+                    <div class="mb-6"><span class="text-6xl font-black">$200</span><span class="text-xl font-bold text-gray-600">/year</span></div>
+                    <p class="font-bold text-gray-700 mb-6">Covers 1 enrolled vehicle with unlimited full synthetic oil changes every 5,000 miles minimum.</p>
+                    <ul class="space-y-3 font-semibold mb-8 flex-grow">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Full synthetic oil</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Premium oil filter</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Fluid top-offs</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Tire pressure check</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Basic vehicle health inspection</li>
+                    </ul>
+                    <button type="button" onclick="selectMembershipPlan('Single Vehicle Membership')" class="bg-white text-black font-black uppercase tracking-widest py-4 px-6 border-4 border-black hover:bg-black hover:text-white transition-all duration-300">Get Started</button>
+                </article>
+
+                <article class="animate-on-scroll delay-100 membership-card border-4 border-black bg-black text-white p-6 sm:p-8 flex flex-col relative shadow-[8px_8px_0px_#facc15]">
+                    <div class="absolute -top-5 right-6 bg-yellow-300 text-black border-4 border-black px-4 py-2 font-black uppercase tracking-widest text-xs">Best Value</div>
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-sm font-black uppercase tracking-widest text-yellow-300">Plan 2</p>
+                            <h3 class="text-2xl sm:text-3xl font-black uppercase">Family Fleet Membership</h3>
+                        </div>
+                        <i data-lucide="cars" class="w-12 h-12"></i>
+                    </div>
+                    <div class="mb-6"><span class="text-6xl font-black">$400</span><span class="text-xl font-bold text-gray-300">/year</span></div>
+                    <p class="font-bold text-gray-200 mb-6">Covers up to 3 enrolled vehicles with unlimited full synthetic oil changes every 5,000 miles minimum per vehicle.</p>
+                    <ul class="space-y-3 font-semibold mb-8 flex-grow">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Full synthetic oil</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Premium oil filter</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Fluid top-offs</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Tire pressure check</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Basic vehicle health inspection</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Multi-vehicle savings for families</li>
+                    </ul>
+                    <button type="button" onclick="selectMembershipPlan('Family Fleet Membership')" class="bg-yellow-300 text-black font-black uppercase tracking-widest py-4 px-6 border-4 border-yellow-300 hover:bg-white hover:border-white transition-all duration-300">Enroll Your Vehicles</button>
+                </article>
+            </div>
+
+            <div class="animate-on-scroll mt-12 border-4 border-black bg-white shadow-[8px_8px_0px_#000] overflow-hidden">
+                <div class="bg-black text-white p-5 text-center">
+                    <h3 class="text-2xl sm:text-3xl font-black uppercase">Membership Benefit Comparison</h3>
+                    <p class="text-gray-300 font-semibold mt-1">Both plans are annual, prepaid, vehicle-specific, and non-transferable.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[720px] text-left">
+                        <thead class="bg-gray-100 border-b-4 border-black">
+                            <tr>
+                                <th class="p-4 font-black uppercase">Benefit</th>
+                                <th class="p-4 font-black uppercase text-center">Single Vehicle</th>
+                                <th class="p-4 font-black uppercase text-center bg-yellow-100">Family Fleet</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-semibold">
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Annual prepaid price</td><td class="p-4 text-center">$200/year</td><td class="p-4 text-center bg-yellow-50">$400/year</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Vehicles covered</td><td class="p-4 text-center">1 enrolled vehicle</td><td class="p-4 text-center bg-yellow-50">Up to 3 enrolled vehicles</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Full synthetic oil changes</td><td class="p-4 text-center">Unlimited*</td><td class="p-4 text-center bg-yellow-50">Unlimited per vehicle*</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Minimum mileage between included oil changes</td><td class="p-4 text-center">5,000 miles</td><td class="p-4 text-center bg-yellow-50">5,000 miles per vehicle</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Premium filter, fluid top-offs, tire pressure check</td><td class="p-4 text-center">Included</td><td class="p-4 text-center bg-yellow-50">Included</td></tr>
+                            <tr><td class="p-4">Basic vehicle health inspection</td><td class="p-4 text-center">Included</td><td class="p-4 text-center bg-yellow-50">Included</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="p-4 text-sm font-bold text-gray-600 border-t-2 border-black/10">*Included oil changes require at least 5,000 miles driven since that enrolled vehicle's previous included membership oil change.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 mt-12 items-start">
+                <div class="animate-on-scroll lg:col-span-2 space-y-6">
+                    <div class="border-4 border-black bg-gray-50 p-6">
+                        <h3 class="text-2xl font-black uppercase mb-4">Membership FAQ</h3>
+                        <div class="space-y-3">
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">What does unlimited mean?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">Unlimited means your enrolled vehicle can receive included full synthetic oil changes during the membership year whenever it has been driven at least 5,000 miles since the last included membership oil change.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">Why is there a 5,000-mile requirement?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">The mileage requirement keeps service intervals healthy, prevents unnecessary oil changes, and helps the membership stay affordable while still protecting your engine.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">What vehicles qualify?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">Most passenger cars, SUVs, crossovers, and light-duty gas trucks within the Dayton service area qualify. Final approval is based on vehicle condition, oil capacity, filter availability, and service access.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">Are diesel vehicles included?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">Diesel vehicles are not automatically included because oil capacity, filters, and service requirements vary. Submit the enrollment form and Shmu will confirm eligibility or quote the correct option.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">Can I transfer my membership?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">No. Memberships are tied to the enrolled vehicle or vehicles and are non-transferable to other vehicles or owners.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="membership-enroll" class="animate-on-scroll lg:col-span-3 scroll-mt-32 border-4 border-black bg-white p-6 sm:p-8 shadow-[8px_8px_0px_#000]">
+                    <div id="membership-success-message" class="hidden min-h-[420px] flex-col items-center justify-center text-center bg-gray-50 p-8">
+                        <div class="bg-black text-white p-5 rounded-full mb-6"><i data-lucide="badge-check" class="w-10 h-10"></i></div>
+                        <h3 class="text-3xl font-black uppercase mb-3">Enrollment Started.</h3>
+                        <p class="text-gray-700 font-semibold text-lg">Thanks. Shmu will confirm vehicle eligibility, mileage, scheduling, and the Stripe payment link before activating your annual membership.</p>
+                        <button onclick="resetMembershipForm()" class="mt-8 border-2 border-black font-bold uppercase px-6 py-2 hover:bg-black hover:text-white transition-colors">Enroll Another Vehicle</button>
+                    </div>
+
+                    <form id="membership-form" onsubmit="handleMembershipSubmit(event)" class="space-y-5">
+                        <div>
+                            <p class="text-sm font-black uppercase tracking-widest text-gray-500">Online Enrollment</p>
+                            <h3 class="text-3xl font-black uppercase">Join the Maintenance Membership</h3>
+                            <p class="text-gray-700 font-semibold mt-2">Enter your details below. Stripe payment integration is staged as a placeholder until live checkout is connected.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Name *</label><input required type="text" name="name" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Email *</label><input required type="email" name="email" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Phone *</label><input required type="tel" name="phone" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Current Mileage *</label><input required type="number" min="0" name="currentMileage" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Year *</label><input required type="number" min="1900" max="2035" name="vehicleYear" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Make *</label><input required type="text" name="vehicleMake" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Model *</label><input required type="text" name="vehicleModel" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Membership Plan *</label><select required name="membershipPlan" id="membership-plan" class="membership-select w-full border-2 border-black p-3 mt-2 bg-white"><option value="">Choose a plan</option><option>Single Vehicle Membership</option><option>Family Fleet Membership</option></select></div>
+                        </div>
+                        <label class="flex items-start gap-3 font-semibold text-sm bg-gray-50 border-2 border-black p-4"><input required type="checkbox" name="terms" class="mt-1"> <span>I understand membership is annual, prepaid, tied to the enrolled vehicle(s), non-transferable, and included oil changes require at least 5,000 miles between services.</span></label>
+                        <div class="border-2 border-dashed border-black p-4 bg-yellow-50">
+                            <div class="flex items-center gap-3 font-black uppercase"><i data-lucide="credit-card" class="w-5 h-5"></i> Stripe Payment Placeholder</div>
+                            <p class="text-sm font-semibold text-gray-700 mt-2">Live Stripe Checkout / Payment Element goes here. Until connected, this form submits the enrollment lead and displays a payment follow-up message.</p>
+                            <input type="hidden" name="stripeStatus" value="Stripe placeholder - checkout pending">
+                        </div>
+                        <button type="submit" class="w-full group bg-black text-white font-black uppercase tracking-widest py-4 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3 shadow-[6px_6px_0px_#ccc] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
+                            Join Now
+                            <i data-lucide="credit-card" class="w-5 h-5"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -555,12 +759,12 @@
             }
 
             const data = {
-                name: form.name.value,
-                phone: form.phone.value,
-                vehicle: form.vehicle.value,
+                name: form.elements.name.value,
+                phone: form.elements.phone.value,
+                vehicle: form.elements.vehicle.value,
                 services: checkedServices,
-                location: form.location.value,
-                notes: form.notes.value
+                location: form.elements.location.value,
+                notes: form.elements.notes.value
             };
 
             try {
@@ -584,6 +788,79 @@
                 alert("Something went wrong. Please call or text 937-367-7089.");
                 console.error(error);
             }
+        }
+
+
+        function selectMembershipPlan(planName) {
+            const planSelect = document.getElementById('membership-plan');
+            const form = document.getElementById('membership-form');
+
+            if (planSelect) {
+                planSelect.value = planName;
+            }
+
+            if (form) {
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function toggleFaq(button) {
+            const faqItem = button.closest('.faq-item');
+            if (faqItem) {
+                faqItem.classList.toggle('is-open');
+            }
+        }
+
+        async function handleMembershipSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const data = {
+                formType: 'Maintenance Membership Enrollment',
+                name: form.elements.name.value,
+                email: form.elements.email.value,
+                phone: form.elements.phone.value,
+                vehicleYear: form.elements.vehicleYear.value,
+                vehicleMake: form.elements.vehicleMake.value,
+                vehicleModel: form.elements.vehicleModel.value,
+                currentMileage: form.elements.currentMileage.value,
+                membershipPlan: form.elements.membershipPlan.value,
+                termsAccepted: form.elements.terms.checked,
+                stripeStatus: form.elements.stripeStatus.value
+            };
+
+            try {
+                await fetch("https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec", {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                form.classList.add('hidden');
+
+                const successMsg = document.getElementById('membership-success-message');
+                successMsg.classList.remove('hidden');
+                successMsg.classList.add('flex');
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } catch (error) {
+                alert("Something went wrong. Please call or text 937-367-7089 to enroll.");
+                console.error(error);
+            }
+        }
+
+        function resetMembershipForm() {
+            const form = document.getElementById('membership-form');
+            const successMsg = document.getElementById('membership-success-message');
+
+            form.reset();
+
+            successMsg.classList.add('hidden');
+            successMsg.classList.remove('flex');
+
+            form.classList.remove('hidden');
         }
 
         // Reset form to book another appointment
