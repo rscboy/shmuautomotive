@@ -533,7 +533,7 @@
                     <div>
                         <h4 class="text-xl font-bold uppercase mb-4 border-b-2 border-black inline-block pb-1">How this works</h4>
                         <p class="text-gray-700 font-medium mb-4 leading-relaxed">
-                            Check the boxes for what you need. Tell me what kind of vehicle you're driving. I'll read it, figure out a game plan, and hit you back within 24 hours to schedule a time and give you a real estimate. 
+                            Pick a day and time that works for you, check the boxes for what you need, and tell me what you're driving. The second you book, you'll get a confirmation email - and so will I. I'll roll up to your driveway at the scheduled time with everything I need.
                         </p>
                         <p class="text-black font-bold uppercase text-sm border-l-4 border-black pl-3 mt-4">
                             Need an oil change but also have a weird check engine light on? Select both and let's find out why.
@@ -551,7 +551,7 @@
                         </div>
                         <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
                             <i data-lucide="clock" class="w-6 h-6"></i>
-                            <span class="font-bold text-lg">Evenings & Weekends</span>
+                            <span class="font-bold text-lg">Fri, Sat &amp; Sun &middot; 9 AM &ndash; 6 PM</span>
                         </div>
                         <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
                             <i data-lucide="car" class="w-6 h-6"></i>
@@ -568,10 +568,11 @@
                         <div class="bg-black text-white p-5 rounded-full mb-6">
                             <i data-lucide="thumbs-up" class="w-10 h-10"></i>
                         </div>
-                        <h4 class="text-3xl font-black uppercase mb-3">Message Received.</h4>
-                        <p class="text-gray-700 font-medium text-lg">I've got your info. I'll be in touch shortly so we can get your car sorted out.</p>
+                        <h4 class="text-3xl font-black uppercase mb-3">You're Booked.</h4>
+                        <p id="success-detail" class="text-gray-700 font-medium text-lg">Your appointment is locked in. Check your inbox for a confirmation email.</p>
+                        <p class="text-gray-600 font-medium text-sm mt-3">Need to reschedule or cancel? Call or text <span class="font-bold text-black whitespace-nowrap">937-367-7089</span>.</p>
                         <button onclick="resetForm()" class="mt-8 border-2 border-black font-bold uppercase px-6 py-2 hover:bg-black hover:text-white transition-colors">
-                            Send Another Request
+                            Book Another
                         </button>
                     </div>
 
@@ -589,8 +590,36 @@
                         </div>
 
                         <div class="space-y-2">
+                            <label class="font-bold uppercase text-sm tracking-wider">Your Email *</label>
+                            <input required type="email" name="email" placeholder="So I can send your confirmation" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                        </div>
+
+                        <div class="space-y-2">
                             <label class="font-bold uppercase text-sm tracking-wider">What are you driving? (Year / Make / Model) *</label>
                             <input required type="text" name="vehicle" placeholder="e.g. 2012 Honda Civic (The indestructible one)" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                        </div>
+
+                        <!-- Appointment Slot Picker -->
+                        <div class="space-y-3 pt-2 border-2 border-black p-4 bg-gray-50">
+                            <label class="font-bold uppercase text-sm tracking-wider flex items-center gap-2">
+                                <i data-lucide="calendar-clock" class="w-4 h-4"></i>
+                                Pick Your Appointment *
+                            </label>
+                            <p class="text-xs text-gray-600 font-medium -mt-1">Available Fridays, Saturdays &amp; Sundays, 9:00 AM &ndash; 6:00 PM.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="space-y-1">
+                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-700">Day</label>
+                                    <select required name="appointmentDate" id="appointmentDate" class="w-full border-2 border-black p-3 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]">
+                                        <option value="" disabled selected>Select a day...</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-700">Time</label>
+                                    <select required name="appointmentTime" id="appointmentTime" class="w-full border-2 border-black p-3 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]">
+                                        <option value="" disabled selected>Select a time...</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Checkbox Multi-Select Area -->
@@ -656,7 +685,7 @@
 
                         <button type="submit" class="w-full group bg-black text-white font-black uppercase tracking-widest py-4 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3 shadow-[6px_6px_0px_#ccc] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
                             <i data-lucide="wrench" class="w-5 h-5 group-hover:rotate-45 transition-transform duration-300"></i>
-                            Send It To Shmu
+                            Book My Appointment
                         </button>
                     </form>
                 </div>
@@ -742,12 +771,62 @@
 
                 typewriterObserver.observe(typewriterEl);
             }
+
+            // Populate appointment day + time slots (Fri/Sat/Sun, 9 AM - 6 PM)
+            populateAppointmentSlots();
         });
+
+        // Availability config
+        const AVAILABLE_WEEKDAYS = [5, 6, 0]; // Fri, Sat, Sun (0 = Sunday)
+        const SLOT_START_HOUR = 9;   // 9:00 AM
+        const SLOT_END_HOUR = 18;    // last appointment finishes by 6:00 PM
+        const SLOT_MINUTES = 30;     // 30-minute increments
+        const WEEKS_AHEAD = 8;       // how far out customers can book
+
+        function populateAppointmentSlots() {
+            const dateSelect = document.getElementById('appointmentDate');
+            const timeSelect = document.getElementById('appointmentTime');
+            if (!dateSelect || !timeSelect) return;
+
+            // Build upcoming available days
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const horizon = new Date(today);
+            horizon.setDate(horizon.getDate() + WEEKS_AHEAD * 7);
+
+            const dayFormatter = new Intl.DateTimeFormat('en-US', {
+                weekday: 'long', month: 'long', day: 'numeric'
+            });
+
+            for (let d = new Date(today); d <= horizon; d.setDate(d.getDate() + 1)) {
+                if (AVAILABLE_WEEKDAYS.includes(d.getDay())) {
+                    const opt = document.createElement('option');
+                    opt.value = d.toISOString().slice(0, 10); // YYYY-MM-DD
+                    opt.textContent = dayFormatter.format(d);
+                    dateSelect.appendChild(opt);
+                }
+            }
+
+            // Build time slots from 9:00 AM up to (but not finishing past) 6:00 PM.
+            // Last start is 5:30 PM so an oil change wraps by 6.
+            const timeFormatter = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric', minute: '2-digit', hour12: true
+            });
+            for (let mins = SLOT_START_HOUR * 60; mins <= SLOT_END_HOUR * 60 - SLOT_MINUTES; mins += SLOT_MINUTES) {
+                const slot = new Date();
+                slot.setHours(Math.floor(mins / 60), mins % 60, 0, 0);
+                const label = timeFormatter.format(slot);
+                const opt = document.createElement('option');
+                opt.value = label;
+                opt.textContent = label;
+                timeSelect.appendChild(opt);
+            }
+        }
 
         // Form Handling Logic (Connected to Google Apps Script)
         async function handleFormSubmit(event) {
-            event.preventDefault(); 
-            
+            event.preventDefault();
+
             const form = event.target;
             const checkedServices = Array.from(
                 form.querySelectorAll('input[name="services"]:checked')
@@ -758,14 +837,26 @@
                 return;
             }
 
+            const dateSelect = form.elements.appointmentDate;
+            const prettyDate = dateSelect.options[dateSelect.selectedIndex]?.text || dateSelect.value;
+
             const data = {
                 name: form.elements.name.value,
                 phone: form.elements.phone.value,
+                email: form.elements.email.value,
                 vehicle: form.elements.vehicle.value,
                 services: checkedServices,
                 location: form.elements.location.value,
-                notes: form.elements.notes.value
+                notes: form.elements.notes.value,
+                appointmentDate: form.elements.appointmentDate.value,   // YYYY-MM-DD
+                appointmentDateLabel: prettyDate,                       // e.g. "Friday, June 13"
+                appointmentTime: form.elements.appointmentTime.value    // e.g. "9:00 AM"
             };
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Booking...';
 
             try {
                 await fetch("https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec", {
@@ -778,7 +869,13 @@
                 });
 
                 form.classList.add('hidden');
-                
+
+                const successDetail = document.getElementById('success-detail');
+                if (successDetail) {
+                    successDetail.textContent =
+                        `You're set for ${prettyDate} at ${data.appointmentTime}. A confirmation email is on its way to ${data.email}.`;
+                }
+
                 const successMsg = document.getElementById('success-message');
                 successMsg.classList.remove('hidden');
                 successMsg.classList.add('flex');
@@ -787,6 +884,10 @@
             } catch (error) {
                 alert("Something went wrong. Please call or text 937-367-7089.");
                 console.error(error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+                lucide.createIcons();
             }
         }
 
