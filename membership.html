@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Membership | Shmu's Automotive</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" type="image/png">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Maintenance Membership | Shmu's Automotive">
+    <meta property="og:description" content="No waiting rooms. No upsells. Just a clean, professional oil change in your own driveway - done in 30 minutes.">
+    <meta property="og:image" content="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Maintenance Membership | Shmu's Automotive">
+    <meta name="twitter:description" content="No waiting rooms. No upsells. Just a clean, professional oil change in your own driveway - done in 30 minutes.">
+    <meta name="twitter:image" content="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Micro-animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Custom Checkbox Styling */
+        input[type="checkbox"] {
+            accent-color: #000000;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+        
+        .service-checkbox-card {
+            transition: all 0.2s ease;
+        }
+        
+        .service-checkbox-card:hover {
+            background-color: #f3f4f6;
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .service-checkbox-card:has(input:checked) {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Service Card Hover */
+        .service-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: 8px 8px 0px #000;
+        }
+
+        /* Typewriter Cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+
+        .membership-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 10px 10px 0px #000;
+        }
+
+        .membership-input:focus,
+        .membership-select:focus {
+            outline: none;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .faq-answer {
+            display: none;
+        }
+
+        .faq-item.is-open .faq-answer {
+            display: block;
+        }
+
+        .faq-item.is-open .faq-chevron {
+            transform: rotate(180deg);
+        }
+
+        ::selection {
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="border-b-4 border-black sticky top-0 bg-white z-50 transition-shadow duration-300 shadow-sm">
+        <!-- Mobile Alert Banner (No more flashing!) -->
+        <div class="bg-black text-white text-center py-2 px-4 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+            Mobile Oil Changes - Serving a 50 Mile Radius of Dayton, OH
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left cursor-pointer hover:opacity-80 transition-opacity" onclick="window.location.href='index.html'">
+                <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-12 sm:h-16 object-contain mix-blend-multiply">
+            </div>
+            
+            <nav class="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
+                <a href="index.html#services" class="hover:underline underline-offset-4 decoration-2 transition-all">The Work</a>
+                <a href="index.html#pricing" class="hover:underline underline-offset-4 decoration-2 transition-all">The Bill</a>
+                <a href="membership.html" class="hover:underline underline-offset-4 decoration-2 transition-all">Membership</a>
+                <a href="index.html#book" class="bg-black text-white px-5 py-2 border-2 border-black hover:bg-white hover:text-black transition-colors duration-300 hover:shadow-[4px_4px_0px_#000]">
+                    Book Now
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pt-8 pb-12 space-y-12">
+
+        <div class="animate-on-scroll">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm font-black uppercase tracking-widest hover:underline underline-offset-4 decoration-2">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+            </a>
+        </div>
+
+        <!-- MAINTENANCE MEMBERSHIP SECTION -->
+        <section id="membership" class="scroll-mt-32">
+            <div class="animate-on-scroll bg-black text-white border-4 border-black p-6 sm:p-10 shadow-[8px_8px_0px_#9ca3af]">
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="inline-flex items-center gap-2 bg-white text-black px-4 py-2 text-sm font-black uppercase tracking-widest">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            Annual Prepaid Maintenance
+                        </div>
+                        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase leading-none">Never Worry About Oil Changes Again</h2>
+                        <p class="text-lg sm:text-xl text-gray-200 font-bold leading-relaxed">Protect your vehicle with our annual maintenance membership. Convenient mobile service, full synthetic oil changes, and predictable maintenance costs all year long.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-bold uppercase tracking-wide">
+                            <div class="flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Mobile service at your home or workplace</div>
+                            <div class="flex items-center gap-3"><i data-lucide="droplets" class="w-5 h-5"></i> Full synthetic oil and premium filters</div>
+                            <div class="flex items-center gap-3"><i data-lucide="wallet" class="w-5 h-5"></i> No surprise maintenance costs</div>
+                            <div class="flex items-center gap-3"><i data-lucide="calendar-check" class="w-5 h-5"></i> Priority scheduling for members</div>
+                            <div class="flex items-center gap-3"><i data-lucide="cars" class="w-5 h-5"></i> Multi-vehicle savings available</div>
+                            <div class="flex items-center gap-3"><i data-lucide="clipboard-check" class="w-5 h-5"></i> Inspections at every visit</div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 bg-white text-black border-4 border-white p-6 shadow-[8px_8px_0px_#facc15]">
+                        <p class="font-black uppercase tracking-widest text-sm mb-2">Built for busy drivers</p>
+                        <p class="text-3xl font-black leading-tight mb-4">Preventive maintenance without the waiting room.</p>
+                        <p class="text-gray-700 font-semibold mb-6">Your membership is tied to the enrolled vehicle, keeps maintenance costs predictable, and helps protect vehicle longevity with regular full synthetic oil service.</p>
+                        <a href="#membership-enroll" class="w-full bg-black text-white font-black uppercase tracking-widest py-4 px-6 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3">
+                            Join Now
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+                <article class="animate-on-scroll membership-card border-4 border-black bg-white p-6 sm:p-8 flex flex-col">
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-sm font-black uppercase tracking-widest text-gray-500">Plan 1</p>
+                            <h3 class="text-2xl sm:text-3xl font-black uppercase">Single Vehicle Membership</h3>
+                        </div>
+                        <i data-lucide="car" class="w-12 h-12"></i>
+                    </div>
+                    <div class="mb-6"><span class="text-6xl font-black">$300</span><span class="text-xl font-bold text-gray-600">/year</span></div>
+                    <p class="font-bold text-gray-700 mb-6">Covers 1 enrolled vehicle with unlimited full synthetic oil changes every 5,000 miles minimum.</p>
+                    <ul class="space-y-3 font-semibold mb-8 flex-grow">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Full synthetic oil</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Premium oil filter</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Fluid top-offs</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Tire pressure check</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Basic vehicle health inspection</li>
+                    </ul>
+                    <button type="button" onclick="selectMembershipPlan('Single Vehicle Membership')" class="bg-white text-black font-black uppercase tracking-widest py-4 px-6 border-4 border-black hover:bg-black hover:text-white transition-all duration-300">Get Started</button>
+                </article>
+
+                <article class="animate-on-scroll delay-100 membership-card border-4 border-black bg-black text-white p-6 sm:p-8 flex flex-col relative shadow-[8px_8px_0px_#facc15]">
+                    <div class="absolute -top-5 right-6 bg-yellow-300 text-black border-4 border-black px-4 py-2 font-black uppercase tracking-widest text-xs">Best Value</div>
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-sm font-black uppercase tracking-widest text-yellow-300">Plan 2</p>
+                            <h3 class="text-2xl sm:text-3xl font-black uppercase">Family Fleet Membership</h3>
+                        </div>
+                        <i data-lucide="cars" class="w-12 h-12"></i>
+                    </div>
+                    <div class="mb-6"><span class="text-6xl font-black">$500</span><span class="text-xl font-bold text-gray-300">/year</span></div>
+                    <p class="font-bold text-gray-200 mb-6">Covers up to 3 enrolled vehicles with unlimited full synthetic oil changes every 5,000 miles minimum per vehicle.</p>
+                    <ul class="space-y-3 font-semibold mb-8 flex-grow">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Full synthetic oil</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Premium oil filter</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Fluid top-offs</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Tire pressure check</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Basic vehicle health inspection</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Multi-vehicle savings for families</li>
+                    </ul>
+                    <button type="button" onclick="selectMembershipPlan('Family Fleet Membership')" class="bg-yellow-300 text-black font-black uppercase tracking-widest py-4 px-6 border-4 border-yellow-300 hover:bg-white hover:border-white transition-all duration-300">Enroll Your Vehicles</button>
+                </article>
+            </div>
+
+            <div class="animate-on-scroll mt-12 border-4 border-black bg-white shadow-[8px_8px_0px_#000] overflow-hidden">
+                <div class="bg-black text-white p-5 text-center">
+                    <h3 class="text-2xl sm:text-3xl font-black uppercase">Membership Benefit Comparison</h3>
+                    <p class="text-gray-300 font-semibold mt-1">Both plans are annual, prepaid, vehicle-specific, and non-transferable.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[720px] text-left">
+                        <thead class="bg-gray-100 border-b-4 border-black">
+                            <tr>
+                                <th class="p-4 font-black uppercase">Benefit</th>
+                                <th class="p-4 font-black uppercase text-center">Single Vehicle</th>
+                                <th class="p-4 font-black uppercase text-center bg-yellow-100">Family Fleet</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-semibold">
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Annual prepaid price</td><td class="p-4 text-center">$300/year</td><td class="p-4 text-center bg-yellow-50">$500/year</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Vehicles covered</td><td class="p-4 text-center">1 enrolled vehicle</td><td class="p-4 text-center bg-yellow-50">Up to 3 enrolled vehicles</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Full synthetic oil changes</td><td class="p-4 text-center">Unlimited*</td><td class="p-4 text-center bg-yellow-50">Unlimited per vehicle*</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Minimum mileage between included oil changes</td><td class="p-4 text-center">5,000 miles</td><td class="p-4 text-center bg-yellow-50">5,000 miles per vehicle</td></tr>
+                            <tr class="border-b-2 border-gray-200"><td class="p-4">Premium filter, fluid top-offs, tire pressure check</td><td class="p-4 text-center">Included</td><td class="p-4 text-center bg-yellow-50">Included</td></tr>
+                            <tr><td class="p-4">Basic vehicle health inspection</td><td class="p-4 text-center">Included</td><td class="p-4 text-center bg-yellow-50">Included</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="p-4 text-sm font-bold text-gray-600 border-t-2 border-black/10">*Included oil changes require at least 5,000 miles driven since that enrolled vehicle's previous included membership oil change.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 mt-12 items-start">
+                <div class="animate-on-scroll lg:col-span-2 space-y-6">
+                    <div class="border-4 border-black bg-gray-50 p-6">
+                        <h3 class="text-2xl font-black uppercase mb-4">Membership FAQ</h3>
+                        <div class="space-y-3">
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">What does unlimited mean?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">Unlimited means your enrolled vehicle can receive included full synthetic oil changes during the membership year whenever it has been driven at least 5,000 miles since the last included membership oil change.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">Why is there a 5,000-mile requirement?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">The mileage requirement keeps service intervals healthy, prevents unnecessary oil changes, and helps the membership stay affordable while still protecting your engine.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">What vehicles qualify?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">Most passenger cars, SUVs, crossovers, and light-duty gas trucks within the Dayton service area qualify. Final approval is based on vehicle condition, oil capacity, filter availability, and service access.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">How much oil is included?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">Each included oil change covers up to 5 quarts of full synthetic oil. Vehicles that require more than 5 quarts can still enroll, but the extra oil is billed at cost per service. Shmu will confirm your vehicle's capacity during enrollment.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">Are diesel vehicles included?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">Diesel vehicles are not automatically included because oil capacity, filters, and service requirements vary. Submit the enrollment form and Shmu will confirm eligibility or quote the correct option.</p>
+                            </div>
+                            <div class="faq-item border-2 border-black bg-white">
+                                <button type="button" onclick="toggleFaq(this)" class="w-full p-4 font-black uppercase flex justify-between items-center text-left">Can I transfer my membership?<i data-lucide="chevron-down" class="faq-chevron w-5 h-5 transition-transform"></i></button>
+                                <p class="faq-answer px-4 pb-4 text-gray-700 font-semibold">No. Memberships are tied to the enrolled vehicle or vehicles and are non-transferable to other vehicles or owners.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="membership-enroll" class="animate-on-scroll lg:col-span-3 scroll-mt-32 border-4 border-black bg-white p-6 sm:p-8 shadow-[8px_8px_0px_#000]">
+                    <div id="membership-success-message" class="hidden min-h-[420px] flex-col items-center justify-center text-center bg-gray-50 p-8">
+                        <div class="bg-black text-white p-5 rounded-full mb-6"><i data-lucide="badge-check" class="w-10 h-10"></i></div>
+                        <h3 class="text-3xl font-black uppercase mb-3">You're a Member!</h3>
+                        <p class="text-gray-700 font-semibold text-lg">Payment received and your membership is active. Check your inbox &mdash; your digital Shmu's Automotive membership card is on its way.</p>
+                        <p class="text-gray-600 font-semibold text-sm mt-3">Questions? Call or text <span class="font-black text-black whitespace-nowrap">937-367-7089</span>.</p>
+                        <button onclick="resetMembershipForm()" class="mt-8 border-2 border-black font-bold uppercase px-6 py-2 hover:bg-black hover:text-white transition-colors">Enroll Another Vehicle</button>
+                    </div>
+
+                    <!-- Payment cancelled notice (shown if customer returns from Stripe without paying) -->
+                    <div id="membership-cancelled-message" class="hidden border-2 border-black bg-yellow-50 p-4 mb-5 font-semibold text-sm">
+                        <span class="font-black uppercase">Payment cancelled.</span> No charge was made. Your details are still below &mdash; complete checkout whenever you're ready, or call <span class="font-black whitespace-nowrap">937-367-7089</span>.
+                    </div>
+
+                    <form id="membership-form" onsubmit="handleMembershipSubmit(event)" class="space-y-5">
+                        <div>
+                            <p class="text-sm font-black uppercase tracking-widest text-gray-500">Online Enrollment</p>
+                            <h3 class="text-3xl font-black uppercase">Join the Maintenance Membership</h3>
+                            <p class="text-gray-700 font-semibold mt-2">Enter your details below and continue to secure checkout. Payment is processed by Stripe &mdash; the moment it clears, your digital membership card is emailed to you.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Name *</label><input required type="text" name="name" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Email *</label><input required type="email" name="email" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Phone *</label><input required type="tel" name="phone" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Current Mileage *</label><input required type="number" min="0" name="currentMileage" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Year *</label><input required type="number" min="1900" max="2035" name="vehicleYear" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Make *</label><input required type="text" name="vehicleMake" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Model *</label><input required type="text" name="vehicleModel" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Membership Plan *</label><select required name="membershipPlan" id="membership-plan" class="membership-select w-full border-2 border-black p-3 mt-2 bg-white"><option value="">Choose a plan</option><option>Single Vehicle Membership</option><option>Family Fleet Membership</option></select></div>
+                        </div>
+                        <label class="flex items-start gap-3 font-semibold text-sm bg-gray-50 border-2 border-black p-4"><input required type="checkbox" name="terms" class="mt-1"> <span>I understand membership is annual, prepaid, tied to the enrolled vehicle(s), non-transferable, and included oil changes require at least 5,000 miles between services.</span></label>
+                        <div class="border-2 border-black p-4 bg-gray-50 flex items-center gap-3">
+                            <i data-lucide="lock" class="w-5 h-5 shrink-0"></i>
+                            <p class="text-sm font-semibold text-gray-700">Secure checkout powered by <span class="font-black">Stripe</span>. You'll review the total and pay on Stripe's encrypted page, then return here. We never see your card details.</p>
+                        </div>
+                        <button type="submit" class="w-full group bg-black text-white font-black uppercase tracking-widest py-4 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3 shadow-[6px_6px_0px_#ccc] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
+                            <i data-lucide="credit-card" class="w-5 h-5"></i>
+                            Continue to Secure Payment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white border-t-8 border-gray-900 py-12 text-center">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center">
+            <div class="mb-6">
+                <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-20 sm:h-24 object-contain mx-auto invert mb-4">
+                <div class="w-16 h-1 bg-white mx-auto mt-4 mb-4"></div>
+                <div class="flex justify-center gap-4 mb-6">
+                    <i data-lucide="wrench" class="w-6 h-6"></i>
+                    <i data-lucide="car" class="w-6 h-6"></i>
+                </div>
+            </div>
+            <p class="text-gray-300 font-bold uppercase tracking-widest mb-2">The Shmu Difference &bull; Dayton, OH</p>
+            <p class="text-gray-500 font-medium text-sm mb-2">Mobile oil changes. No dealership BS.</p>
+            <p class="text-gray-600 text-xs mt-8 uppercase tracking-widest">
+                &copy; <span id="year"></span> Shmu's Automotive. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Micro-animations via Intersection Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(el => observer.observe(el));
+
+            // Typewriter Effect Logic
+            const typewriterEl = document.getElementById('typewriter-text');
+            if (typewriterEl) {
+                const textToType = typewriterEl.getAttribute('data-text');
+                typewriterEl.textContent = ''; // Clear fallback text
+                let isTyping = false;
+
+                const typewriterObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && !isTyping) {
+                        isTyping = true;
+                        let i = 0;
+                        function type() {
+                            if (i < textToType.length) {
+                                typewriterEl.textContent += textToType.charAt(i);
+                                i++;
+                                setTimeout(type, 35); // Typing speed
+                            } else {
+                                // Optional: Stop cursor blinking after typing finishes
+                                setTimeout(() => {
+                                    typewriterEl.classList.remove('typing-cursor');
+                                }, 3000);
+                            }
+                        }
+                        // Add slight delay before typing starts to allow scroll animation
+                        setTimeout(type, 500); 
+                        typewriterObserver.unobserve(typewriterEl);
+                    }
+                }, { threshold: 0.5 });
+
+                typewriterObserver.observe(typewriterEl);
+            }
+
+            // Populate appointment day + time slots (Fri/Sat/Sun, 9 AM - 6 PM)
+            populateAppointmentSlots();
+
+            // Reflect the result of a Stripe Checkout round-trip, if any
+            handleMembershipReturn();
+        });
+
+        // Availability config
+        const AVAILABLE_WEEKDAYS = [5, 6, 0]; // Fri, Sat, Sun (0 = Sunday)
+        const SLOT_START_HOUR = 9;   // 9:00 AM
+        const SLOT_END_HOUR = 18;    // last appointment finishes by 6:00 PM
+        const SLOT_MINUTES = 30;     // 30-minute increments
+        const WEEKS_AHEAD = 8;       // how far out customers can book
+
+        function populateAppointmentSlots() {
+            const dateSelect = document.getElementById('appointmentDate');
+            const timeSelect = document.getElementById('appointmentTime');
+            if (!dateSelect || !timeSelect) return;
+
+            // Build upcoming available days
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const horizon = new Date(today);
+            horizon.setDate(horizon.getDate() + WEEKS_AHEAD * 7);
+
+            const dayFormatter = new Intl.DateTimeFormat('en-US', {
+                weekday: 'long', month: 'long', day: 'numeric'
+            });
+
+            for (let d = new Date(today); d <= horizon; d.setDate(d.getDate() + 1)) {
+                if (AVAILABLE_WEEKDAYS.includes(d.getDay())) {
+                    const opt = document.createElement('option');
+                    opt.value = d.toISOString().slice(0, 10); // YYYY-MM-DD
+                    opt.textContent = dayFormatter.format(d);
+                    dateSelect.appendChild(opt);
+                }
+            }
+
+            // Build time slots from 9:00 AM up to (but not finishing past) 6:00 PM.
+            // Last start is 5:30 PM so an oil change wraps by 6.
+            const timeFormatter = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric', minute: '2-digit', hour12: true
+            });
+            for (let mins = SLOT_START_HOUR * 60; mins <= SLOT_END_HOUR * 60 - SLOT_MINUTES; mins += SLOT_MINUTES) {
+                const slot = new Date();
+                slot.setHours(Math.floor(mins / 60), mins % 60, 0, 0);
+                const label = timeFormatter.format(slot);
+                const opt = document.createElement('option');
+                opt.value = label;
+                opt.textContent = label;
+                timeSelect.appendChild(opt);
+            }
+        }
+
+        // Form Handling Logic (Connected to Google Apps Script)
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const checkedServices = Array.from(
+                form.querySelectorAll('input[name="services"]:checked')
+            ).map(cb => cb.value);
+
+            if (checkedServices.length === 0) {
+                alert("Please select at least one service so I know what tools to pack.");
+                return;
+            }
+
+            const dateSelect = form.elements.appointmentDate;
+            const prettyDate = dateSelect.options[dateSelect.selectedIndex]?.text || dateSelect.value;
+
+            const data = {
+                name: form.elements.name.value,
+                phone: form.elements.phone.value,
+                email: form.elements.email.value,
+                vehicle: form.elements.vehicle.value,
+                services: checkedServices,
+                location: form.elements.location.value,
+                notes: form.elements.notes.value,
+                appointmentDate: form.elements.appointmentDate.value,   // YYYY-MM-DD
+                appointmentDateLabel: prettyDate,                       // e.g. "Friday, June 13"
+                appointmentTime: form.elements.appointmentTime.value    // e.g. "9:00 AM"
+            };
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Booking...';
+
+            try {
+                await fetch("https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec", {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                form.classList.add('hidden');
+
+                const successDetail = document.getElementById('success-detail');
+                if (successDetail) {
+                    successDetail.textContent =
+                        `You're set for ${prettyDate} at ${data.appointmentTime}. A confirmation email is on its way to ${data.email}.`;
+                }
+
+                const successMsg = document.getElementById('success-message');
+                successMsg.classList.remove('hidden');
+                successMsg.classList.add('flex');
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            } catch (error) {
+                alert("Something went wrong. Please call or text 937-367-7089.");
+                console.error(error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+                lucide.createIcons();
+            }
+        }
+
+
+        function selectMembershipPlan(planName) {
+            const planSelect = document.getElementById('membership-plan');
+            const form = document.getElementById('membership-form');
+
+            if (planSelect) {
+                planSelect.value = planName;
+            }
+
+            if (form) {
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function toggleFaq(button) {
+            const faqItem = button.closest('.faq-item');
+            if (faqItem) {
+                faqItem.classList.toggle('is-open');
+            }
+        }
+
+        // Google Apps Script endpoint (handles bookings, Stripe checkout, and the Stripe webhook)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec";
+
+        // Membership enrollment -> hand off to Stripe Checkout.
+        // We navigate to the Apps Script (GET), which creates a Stripe Checkout
+        // Session with these details as metadata and redirects to Stripe's page.
+        // On a confirmed payment, Stripe's webhook tells Apps Script to email the card.
+        function handleMembershipSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const vehicle = [
+                form.elements.vehicleYear.value,
+                form.elements.vehicleMake.value,
+                form.elements.vehicleModel.value
+            ].join(' ').trim();
+
+            const params = new URLSearchParams({
+                action: 'membershipCheckout',
+                name: form.elements.name.value,
+                email: form.elements.email.value,
+                phone: form.elements.phone.value,
+                vehicle: vehicle,
+                mileage: form.elements.currentMileage.value,
+                plan: form.elements.membershipPlan.value
+            });
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Redirecting to secure checkout...';
+            }
+
+            // Full-page redirect to Stripe via the Apps Script (avoids CORS).
+            window.location.href = APPS_SCRIPT_URL + '?' + params.toString();
+        }
+
+        // Show the right state when the customer returns from Stripe Checkout.
+        function handleMembershipReturn() {
+            const status = new URLSearchParams(window.location.search).get('membership');
+            if (!status) return;
+
+            const form = document.getElementById('membership-form');
+            const successMsg = document.getElementById('membership-success-message');
+            const cancelledMsg = document.getElementById('membership-cancelled-message');
+
+            if (status === 'success') {
+                if (form) form.classList.add('hidden');
+                if (cancelledMsg) cancelledMsg.classList.add('hidden');
+                if (successMsg) {
+                    successMsg.classList.remove('hidden');
+                    successMsg.classList.add('flex');
+                }
+                (successMsg || document.getElementById('membership-enroll'))
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (status === 'cancelled') {
+                if (cancelledMsg) cancelledMsg.classList.remove('hidden');
+                document.getElementById('membership-enroll')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // Clean the URL so a refresh doesn't re-trigger the message.
+            if (window.history.replaceState) {
+                window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+            }
+        }
+
+        function resetMembershipForm() {
+            const form = document.getElementById('membership-form');
+            const successMsg = document.getElementById('membership-success-message');
+
+            form.reset();
+
+            successMsg.classList.add('hidden');
+            successMsg.classList.remove('flex');
+
+            form.classList.remove('hidden');
+        }
+
+        // Reset form to book another appointment
+        function resetForm() {
+            const form = document.getElementById('booking-form');
+            const successMsg = document.getElementById('success-message');
+            
+            form.reset(); 
+            
+            successMsg.classList.add('hidden');
+            successMsg.classList.remove('flex');
+            
+            form.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
