@@ -471,16 +471,22 @@
                 <div id="membership-enroll" class="animate-on-scroll lg:col-span-3 scroll-mt-32 border-4 border-black bg-white p-6 sm:p-8 shadow-[8px_8px_0px_#000]">
                     <div id="membership-success-message" class="hidden min-h-[420px] flex-col items-center justify-center text-center bg-gray-50 p-8">
                         <div class="bg-black text-white p-5 rounded-full mb-6"><i data-lucide="badge-check" class="w-10 h-10"></i></div>
-                        <h3 class="text-3xl font-black uppercase mb-3">Enrollment Started.</h3>
-                        <p class="text-gray-700 font-semibold text-lg">Thanks. Shmu will confirm vehicle eligibility, mileage, scheduling, and the Stripe payment link before activating your annual membership.</p>
+                        <h3 class="text-3xl font-black uppercase mb-3">You're a Member!</h3>
+                        <p class="text-gray-700 font-semibold text-lg">Payment received and your membership is active. Check your inbox &mdash; your digital Shmu's Automotive membership card is on its way.</p>
+                        <p class="text-gray-600 font-semibold text-sm mt-3">Questions? Call or text <span class="font-black text-black whitespace-nowrap">937-367-7089</span>.</p>
                         <button onclick="resetMembershipForm()" class="mt-8 border-2 border-black font-bold uppercase px-6 py-2 hover:bg-black hover:text-white transition-colors">Enroll Another Vehicle</button>
+                    </div>
+
+                    <!-- Payment cancelled notice (shown if customer returns from Stripe without paying) -->
+                    <div id="membership-cancelled-message" class="hidden border-2 border-black bg-yellow-50 p-4 mb-5 font-semibold text-sm">
+                        <span class="font-black uppercase">Payment cancelled.</span> No charge was made. Your details are still below &mdash; complete checkout whenever you're ready, or call <span class="font-black whitespace-nowrap">937-367-7089</span>.
                     </div>
 
                     <form id="membership-form" onsubmit="handleMembershipSubmit(event)" class="space-y-5">
                         <div>
                             <p class="text-sm font-black uppercase tracking-widest text-gray-500">Online Enrollment</p>
                             <h3 class="text-3xl font-black uppercase">Join the Maintenance Membership</h3>
-                            <p class="text-gray-700 font-semibold mt-2">Enter your details below. Stripe payment integration is staged as a placeholder until live checkout is connected.</p>
+                            <p class="text-gray-700 font-semibold mt-2">Enter your details below and continue to secure checkout. Payment is processed by Stripe &mdash; the moment it clears, your digital membership card is emailed to you.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div><label class="font-bold uppercase text-sm tracking-wider">Name *</label><input required type="text" name="name" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
@@ -493,14 +499,13 @@
                             <div><label class="font-bold uppercase text-sm tracking-wider">Membership Plan *</label><select required name="membershipPlan" id="membership-plan" class="membership-select w-full border-2 border-black p-3 mt-2 bg-white"><option value="">Choose a plan</option><option>Single Vehicle Membership</option><option>Family Fleet Membership</option></select></div>
                         </div>
                         <label class="flex items-start gap-3 font-semibold text-sm bg-gray-50 border-2 border-black p-4"><input required type="checkbox" name="terms" class="mt-1"> <span>I understand membership is annual, prepaid, tied to the enrolled vehicle(s), non-transferable, and included oil changes require at least 5,000 miles between services.</span></label>
-                        <div class="border-2 border-dashed border-black p-4 bg-yellow-50">
-                            <div class="flex items-center gap-3 font-black uppercase"><i data-lucide="credit-card" class="w-5 h-5"></i> Stripe Payment Placeholder</div>
-                            <p class="text-sm font-semibold text-gray-700 mt-2">Live Stripe Checkout / Payment Element goes here. Until connected, this form submits the enrollment lead and displays a payment follow-up message.</p>
-                            <input type="hidden" name="stripeStatus" value="Stripe placeholder - checkout pending">
+                        <div class="border-2 border-black p-4 bg-gray-50 flex items-center gap-3">
+                            <i data-lucide="lock" class="w-5 h-5 shrink-0"></i>
+                            <p class="text-sm font-semibold text-gray-700">Secure checkout powered by <span class="font-black">Stripe</span>. You'll review the total and pay on Stripe's encrypted page, then return here. We never see your card details.</p>
                         </div>
                         <button type="submit" class="w-full group bg-black text-white font-black uppercase tracking-widest py-4 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3 shadow-[6px_6px_0px_#ccc] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
-                            Join Now
                             <i data-lucide="credit-card" class="w-5 h-5"></i>
+                            Continue to Secure Payment
                         </button>
                     </form>
                 </div>
@@ -778,6 +783,9 @@
 
             // Populate appointment day + time slots (Fri/Sat/Sun, 9 AM - 6 PM)
             populateAppointmentSlots();
+
+            // Reflect the result of a Stripe Checkout round-trip, if any
+            handleMembershipReturn();
         });
 
         // Availability config
@@ -916,43 +924,70 @@
             }
         }
 
-        async function handleMembershipSubmit(event) {
+        // Google Apps Script endpoint (handles bookings, Stripe checkout, and the Stripe webhook)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec";
+
+        // Membership enrollment -> hand off to Stripe Checkout.
+        // We navigate to the Apps Script (GET), which creates a Stripe Checkout
+        // Session with these details as metadata and redirects to Stripe's page.
+        // On a confirmed payment, Stripe's webhook tells Apps Script to email the card.
+        function handleMembershipSubmit(event) {
             event.preventDefault();
 
             const form = event.target;
-            const data = {
-                formType: 'Maintenance Membership Enrollment',
+            const vehicle = [
+                form.elements.vehicleYear.value,
+                form.elements.vehicleMake.value,
+                form.elements.vehicleModel.value
+            ].join(' ').trim();
+
+            const params = new URLSearchParams({
+                action: 'membershipCheckout',
                 name: form.elements.name.value,
                 email: form.elements.email.value,
                 phone: form.elements.phone.value,
-                vehicleYear: form.elements.vehicleYear.value,
-                vehicleMake: form.elements.vehicleMake.value,
-                vehicleModel: form.elements.vehicleModel.value,
-                currentMileage: form.elements.currentMileage.value,
-                membershipPlan: form.elements.membershipPlan.value,
-                termsAccepted: form.elements.terms.checked,
-                stripeStatus: form.elements.stripeStatus.value
-            };
+                vehicle: vehicle,
+                mileage: form.elements.currentMileage.value,
+                plan: form.elements.membershipPlan.value
+            });
 
-            try {
-                await fetch("https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec", {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8"
-                    },
-                    body: JSON.stringify(data)
-                });
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Redirecting to secure checkout...';
+            }
 
-                form.classList.add('hidden');
+            // Full-page redirect to Stripe via the Apps Script (avoids CORS).
+            window.location.href = APPS_SCRIPT_URL + '?' + params.toString();
+        }
 
-                const successMsg = document.getElementById('membership-success-message');
-                successMsg.classList.remove('hidden');
-                successMsg.classList.add('flex');
-                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } catch (error) {
-                alert("Something went wrong. Please call or text 937-367-7089 to enroll.");
-                console.error(error);
+        // Show the right state when the customer returns from Stripe Checkout.
+        function handleMembershipReturn() {
+            const status = new URLSearchParams(window.location.search).get('membership');
+            if (!status) return;
+
+            const form = document.getElementById('membership-form');
+            const successMsg = document.getElementById('membership-success-message');
+            const cancelledMsg = document.getElementById('membership-cancelled-message');
+
+            if (status === 'success') {
+                if (form) form.classList.add('hidden');
+                if (cancelledMsg) cancelledMsg.classList.add('hidden');
+                if (successMsg) {
+                    successMsg.classList.remove('hidden');
+                    successMsg.classList.add('flex');
+                }
+                (successMsg || document.getElementById('membership-enroll'))
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (status === 'cancelled') {
+                if (cancelledMsg) cancelledMsg.classList.remove('hidden');
+                document.getElementById('membership-enroll')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // Clean the URL so a refresh doesn't re-trigger the message.
+            if (window.history.replaceState) {
+                window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
             }
         }
 
