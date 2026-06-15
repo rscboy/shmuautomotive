@@ -32,6 +32,23 @@
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
             color: #000000;
+            overflow-x: hidden;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        img,
+        svg,
+        iframe {
+            max-width: 100%;
         }
 
         /* Micro-animations */
@@ -100,38 +117,150 @@
             background: #000;
             color: #fff;
         }
+
+        .site-nav a,
+        .hero-actions a,
+        #booking-form button,
+        #booking-form input,
+        #booking-form select {
+            min-height: 44px;
+        }
+
+        @media (hover: none) {
+            .service-card:hover,
+            .service-checkbox-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .service-banner {
+                line-height: 1.35;
+                letter-spacing: 0.06em;
+            }
+
+            .site-nav-shell {
+                gap: 0.5rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.65rem;
+            }
+
+            .site-nav {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.5rem;
+                width: 100%;
+                font-size: 0.75rem;
+                letter-spacing: 0.04em;
+            }
+
+            .site-nav a {
+                align-items: center;
+                border: 2px solid #000;
+                display: flex;
+                justify-content: center;
+                padding: 0.65rem 0.5rem;
+                text-align: center;
+            }
+
+            .site-nav a:not(.primary-nav-cta) {
+                background: #fff;
+            }
+
+            .hero-section {
+                margin-bottom: 2.5rem;
+                margin-top: 0.5rem;
+            }
+
+            .hero-actions a,
+            #booking-form button {
+                padding: 0.875rem 1rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            #booking-form input,
+            #booking-form select,
+            #booking-form textarea {
+                font-size: 16px;
+            }
+
+            #booking-form textarea {
+                min-height: 120px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .section-heading h3 {
+                font-size: 1.75rem;
+                line-height: 1;
+            }
+
+            .pricing-card {
+                box-shadow: 5px 5px 0 #000;
+            }
+
+            .pricing-list {
+                padding: 1.25rem;
+            }
+
+            .pricing-feature-title {
+                flex-wrap: wrap;
+                row-gap: 0.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .animate-on-scroll {
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-black selection:text-white">
 
     <!-- HEADER / NAVIGATION -->
-    <header class="border-b-4 border-black sticky top-0 bg-white z-50 transition-shadow duration-300 shadow-sm">
+    <header class="site-header border-b-4 border-black sticky top-0 bg-white z-50 transition-shadow duration-300 shadow-sm">
         <!-- Mobile Alert Banner (No more flashing!) -->
-        <div class="bg-black text-white text-center py-2 px-4 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+        <div class="service-banner bg-black text-white text-center py-2 px-4 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2">
             <i data-lucide="map-pin" class="w-4 h-4"></i>
             Mobile Oil Changes - Serving a 50 Mile Radius of Dayton, OH
         </div>
         
-        <div class="max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="site-nav-shell max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex flex-col items-center md:items-start text-center md:text-left cursor-pointer hover:opacity-80 transition-opacity" onclick="window.scrollTo(0,0)">
                 <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-12 sm:h-16 object-contain mix-blend-multiply">
             </div>
             
-            <nav class="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
+            <nav class="site-nav flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
                 <a href="#services" class="hover:underline underline-offset-4 decoration-2 transition-all">The Work</a>
                 <a href="#pricing" class="hover:underline underline-offset-4 decoration-2 transition-all">The Bill</a>
                 <a href="membership.html" class="hover:underline underline-offset-4 decoration-2 transition-all">Membership</a>
-                <a href="#book" class="bg-black text-white px-5 py-2 border-2 border-black hover:bg-white hover:text-black transition-colors duration-300 hover:shadow-[4px_4px_0px_#000]">
+                <a href="#book" class="primary-nav-cta bg-black text-white px-5 py-2 border-2 border-black hover:bg-white hover:text-black transition-colors duration-300 hover:shadow-[4px_4px_0px_#000]">
                     Book Now
                 </a>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 pt-4 pb-12 space-y-24">
+    <main class="max-w-6xl mx-auto px-4 pt-4 pb-12 space-y-16 sm:space-y-24">
 
         <!-- HERO SECTION -->
-        <section class="max-w-4xl mt-2 mb-16 space-y-8">
+        <section class="hero-section max-w-4xl mt-2 mb-16 space-y-8">
             <!-- Copy & Buttons -->
             <div class="space-y-8 animate-on-scroll">
                 <div class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 text-sm sm:text-base font-bold uppercase tracking-widest">
@@ -139,7 +268,7 @@
                     Dayton, OH & 50-Mile Radius
                 </div>
                 
-                <h1 class="text-6xl sm:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tighter leading-[0.9]">
+                <h1 class="text-5xl sm:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight sm:tracking-tighter leading-[0.9]">
                     The <span class="inline-block bg-black text-white px-2 transform -skew-x-6 pb-1">Shmu</span><br>Difference.
                 </h1>
                 
@@ -147,7 +276,7 @@
                     <p id="typewriter-text" class="text-xl sm:text-2xl text-gray-800 font-bold leading-relaxed typing-cursor" data-text="No waiting rooms. No upsells. Just a clean, professional oil change in your own driveway - done in 30 minutes."></p>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                <div class="hero-actions flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
                     <a href="#book" class="bg-black text-white font-black uppercase tracking-widest py-4 px-8 border-4 border-black hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3">
                         <i data-lucide="wrench" class="w-5 h-5"></i>
                         Book Your Oil Change
@@ -166,7 +295,7 @@
         
         <!-- SERVICES SECTION -->
         <section id="services" class="scroll-mt-40">
-            <div class="animate-on-scroll flex items-center gap-4 mb-10">
+            <div class="section-heading animate-on-scroll flex items-center gap-4 mb-10">
                 <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">What I Do</h3>
                 <div class="flex-grow h-1 bg-black"></div>
             </div>
@@ -225,13 +354,13 @@
 
         <!-- PRICING SECTION -->
         <section id="pricing" class="scroll-mt-32">
-            <div class="animate-on-scroll flex items-center gap-4 mb-10">
+            <div class="section-heading animate-on-scroll flex items-center gap-4 mb-10">
                 <div class="flex-grow h-1 bg-black"></div>
                 <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Straightforward Pricing</h3>
                 <div class="flex-grow h-1 bg-black"></div>
             </div>
 
-            <div class="animate-on-scroll bg-white border-4 border-black shadow-[8px_8px_0px_#000]">
+            <div class="pricing-card animate-on-scroll bg-white border-4 border-black shadow-[8px_8px_0px_#000]">
                 <!-- Header -->
                 <div class="bg-black text-white p-4 sm:p-6 text-center">
                     <h4 class="font-black text-xl uppercase tracking-widest">The Lube Ledger</h4>
@@ -239,7 +368,7 @@
                 </div>
 
                 <!-- Ledger list -->
-                <div class="p-6 sm:p-10 space-y-0">
+                <div class="pricing-list p-6 sm:p-10 space-y-0">
                     
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b-2 border-black/10 hover:bg-gray-50 transition-colors px-2">
                         <div class="pr-4">
@@ -267,7 +396,7 @@
 
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b-2 border-black/10 hover:bg-gray-50 transition-colors px-2 bg-gray-50 border-l-4 border-l-black">
                         <div class="pr-4 pl-2">
-                            <div class="flex items-center gap-3">
+                            <div class="pricing-feature-title flex items-center gap-3">
                                 <h4 class="text-lg font-bold uppercase text-black">Valvoline Restore & Protect</h4>
                                 <span class="bg-black text-white text-[10px] font-bold uppercase px-2 py-0.5 whitespace-nowrap">Shmu Recommended</span>
                             </div>
@@ -309,7 +438,7 @@
 
         <!-- SERVICE AREA MAP -->
         <section class="animate-on-scroll scroll-mt-32">
-            <div class="flex items-center gap-4 mb-6">
+            <div class="section-heading flex items-center gap-4 mb-6">
                 <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">My Turf</h3>
                 <div class="flex-grow h-1 bg-black"></div>
             </div>
@@ -325,7 +454,7 @@
 
         <!-- BOOKING SECTION -->
         <section id="book" class="scroll-mt-32 pb-12">
-            <div class="animate-on-scroll flex items-center gap-4 mb-10">
+            <div class="section-heading animate-on-scroll flex items-center gap-4 mb-10">
                 <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Call In The Cavalry</h3>
                 <div class="flex-grow h-1 bg-black"></div>
             </div>
@@ -345,14 +474,14 @@
                     </div>
                     
                     <div class="space-y-5 bg-gray-50 border-4 border-black p-6">
-                        <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
-                            <i data-lucide="phone" class="w-6 h-6"></i>
-                            <span class="font-bold text-lg">937-367-7089</span>
-                        </div>
-                        <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
-                            <i data-lucide="mail" class="w-6 h-6"></i>
-                            <span class="font-bold text-lg">sam@daytongrowth.co</span>
-                        </div>
+                            <a href="tel:9373677089" class="flex items-center gap-4 hover:translate-x-2 transition-transform">
+                                <i data-lucide="phone" class="w-6 h-6"></i>
+                                <span class="font-bold text-lg">937-367-7089</span>
+                            </a>
+                            <a href="mailto:sam@daytongrowth.co" class="flex items-center gap-4 hover:translate-x-2 transition-transform">
+                                <i data-lucide="mail" class="w-6 h-6"></i>
+                                <span class="font-bold text-lg">sam@daytongrowth.co</span>
+                            </a>
                         <div class="flex items-center gap-4 hover:translate-x-2 transition-transform">
                             <i data-lucide="clock" class="w-6 h-6"></i>
                             <span class="font-bold text-lg">Fri, Sat &amp; Sun &middot; 9 AM &ndash; 6 PM</span>
@@ -385,22 +514,22 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label class="font-bold uppercase text-sm tracking-wider">Your Name *</label>
-                                <input required type="text" name="name" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                                <input required type="text" name="name" autocomplete="name" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
                             </div>
                             <div class="space-y-2">
                                 <label class="font-bold uppercase text-sm tracking-wider">Phone Number *</label>
-                                <input required type="tel" name="phone" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                                <input required type="tel" name="phone" autocomplete="tel" inputmode="tel" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
                             </div>
                         </div>
 
                         <div class="space-y-2">
                             <label class="font-bold uppercase text-sm tracking-wider">Your Email *</label>
-                            <input required type="email" name="email" placeholder="So I can send your confirmation" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                            <input required type="email" name="email" autocomplete="email" placeholder="So I can send your confirmation" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
                         </div>
 
                         <div class="space-y-2">
                             <label class="font-bold uppercase text-sm tracking-wider">What are you driving? (Year / Make / Model) *</label>
-                            <input required type="text" name="vehicle" placeholder="e.g. 2012 Honda Civic (The indestructible one)" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                            <input required type="text" name="vehicle" autocomplete="off" placeholder="e.g. 2012 Honda Civic (The indestructible one)" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
                         </div>
 
                         <!-- Appointment Slot Picker -->
@@ -479,7 +608,7 @@
 
                         <div class="space-y-2">
                             <label class="font-bold uppercase text-sm tracking-wider">Where is the car? *</label>
-                            <input required type="text" name="location" placeholder="City, Zip code, or full address" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
+                            <input required type="text" name="location" autocomplete="street-address" placeholder="City, Zip code, or full address" class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-shadow hover:shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000]" />
                         </div>
 
                         <div class="space-y-2">

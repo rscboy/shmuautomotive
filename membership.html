@@ -32,6 +32,23 @@
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
             color: #000000;
+            overflow-x: hidden;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        img,
+        svg,
+        iframe {
+            max-width: 100%;
         }
 
         /* Micro-animations */
@@ -126,28 +143,135 @@
             background: #000;
             color: #fff;
         }
+
+        .site-nav a,
+        #membership-form button,
+        #membership-form input,
+        #membership-form select,
+        #membership-enroll a,
+        .membership-card button {
+            min-height: 44px;
+        }
+
+        @media (hover: none) {
+            .service-card:hover,
+            .service-checkbox-card:hover,
+            .membership-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .service-banner {
+                line-height: 1.35;
+                letter-spacing: 0.06em;
+            }
+
+            .site-nav-shell {
+                gap: 0.5rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.65rem;
+            }
+
+            .site-nav {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.5rem;
+                width: 100%;
+                font-size: 0.75rem;
+                letter-spacing: 0.04em;
+            }
+
+            .site-nav a {
+                align-items: center;
+                border: 2px solid #000;
+                display: flex;
+                justify-content: center;
+                padding: 0.65rem 0.5rem;
+                text-align: center;
+            }
+
+            .site-nav a:not(.primary-nav-cta) {
+                background: #fff;
+            }
+
+            .membership-hero {
+                padding: 1.25rem;
+                box-shadow: 5px 5px 0 #9ca3af;
+            }
+
+            .membership-hero h2 {
+                font-size: 2.25rem;
+                line-height: 0.95;
+            }
+
+            .membership-card {
+                padding: 1.25rem;
+            }
+
+            .membership-price {
+                font-size: 3rem;
+                line-height: 1;
+            }
+
+            .membership-card button,
+            #membership-form button,
+            #membership-enroll a {
+                padding: 0.875rem 1rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            #membership-form input,
+            #membership-form select,
+            #membership-form textarea {
+                font-size: 16px;
+            }
+
+            .section-heading h3 {
+                font-size: 1.75rem;
+                line-height: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .animate-on-scroll {
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-black selection:text-white">
 
     <!-- HEADER / NAVIGATION -->
-    <header class="border-b-4 border-black sticky top-0 bg-white z-50 transition-shadow duration-300 shadow-sm">
+    <header class="site-header border-b-4 border-black sticky top-0 bg-white z-50 transition-shadow duration-300 shadow-sm">
         <!-- Mobile Alert Banner (No more flashing!) -->
-        <div class="bg-black text-white text-center py-2 px-4 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+        <div class="service-banner bg-black text-white text-center py-2 px-4 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2">
             <i data-lucide="map-pin" class="w-4 h-4"></i>
             Mobile Oil Changes - Serving a 50 Mile Radius of Dayton, OH
         </div>
         
-        <div class="max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="site-nav-shell max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex flex-col items-center md:items-start text-center md:text-left cursor-pointer hover:opacity-80 transition-opacity" onclick="window.location.href='index.html'">
                 <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-12 sm:h-16 object-contain mix-blend-multiply">
             </div>
             
-            <nav class="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
+            <nav class="site-nav flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
                 <a href="index.html#services" class="hover:underline underline-offset-4 decoration-2 transition-all">The Work</a>
                 <a href="index.html#pricing" class="hover:underline underline-offset-4 decoration-2 transition-all">The Bill</a>
                 <a href="membership.html" class="hover:underline underline-offset-4 decoration-2 transition-all">Membership</a>
-                <a href="index.html#book" class="bg-black text-white px-5 py-2 border-2 border-black hover:bg-white hover:text-black transition-colors duration-300 hover:shadow-[4px_4px_0px_#000]">
+                <a href="index.html#book" class="primary-nav-cta bg-black text-white px-5 py-2 border-2 border-black hover:bg-white hover:text-black transition-colors duration-300 hover:shadow-[4px_4px_0px_#000]">
                     Book Now
                 </a>
             </nav>
@@ -164,7 +288,7 @@
 
         <!-- MAINTENANCE MEMBERSHIP SECTION -->
         <section id="membership" class="scroll-mt-32">
-            <div class="animate-on-scroll bg-black text-white border-4 border-black p-6 sm:p-10 shadow-[8px_8px_0px_#9ca3af]">
+            <div class="membership-hero animate-on-scroll bg-black text-white border-4 border-black p-6 sm:p-10 shadow-[8px_8px_0px_#9ca3af]">
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
                     <div class="lg:col-span-3 space-y-6">
                         <div class="inline-flex items-center gap-2 bg-white text-black px-4 py-2 text-sm font-black uppercase tracking-widest">
@@ -178,7 +302,7 @@
                             <div class="flex items-center gap-3"><i data-lucide="droplets" class="w-5 h-5"></i> Full synthetic oil and premium filters</div>
                             <div class="flex items-center gap-3"><i data-lucide="wallet" class="w-5 h-5"></i> No surprise maintenance costs</div>
                             <div class="flex items-center gap-3"><i data-lucide="calendar-check" class="w-5 h-5"></i> Priority scheduling for members</div>
-                            <div class="flex items-center gap-3"><i data-lucide="cars" class="w-5 h-5"></i> Multi-vehicle savings available</div>
+                            <div class="flex items-center gap-3"><i data-lucide="car-front" class="w-5 h-5"></i> Multi-vehicle savings available</div>
                             <div class="flex items-center gap-3"><i data-lucide="clipboard-check" class="w-5 h-5"></i> Inspections at every visit</div>
                         </div>
                     </div>
@@ -203,7 +327,7 @@
                         </div>
                         <i data-lucide="car" class="w-12 h-12"></i>
                     </div>
-                    <div class="mb-6"><span class="text-6xl font-black">$300</span><span class="text-xl font-bold text-gray-600">/year</span></div>
+                    <div class="mb-6"><span class="membership-price text-6xl font-black">$300</span><span class="text-xl font-bold text-gray-600">/year</span></div>
                     <p class="font-bold text-gray-700 mb-6">Covers 1 enrolled vehicle with unlimited full synthetic oil changes every 5,000 miles minimum.</p>
                     <ul class="space-y-3 font-semibold mb-8 flex-grow">
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Full synthetic oil</li>
@@ -222,9 +346,9 @@
                             <p class="text-sm font-black uppercase tracking-widest text-yellow-300">Plan 2</p>
                             <h3 class="text-2xl sm:text-3xl font-black uppercase">Family Fleet Membership</h3>
                         </div>
-                        <i data-lucide="cars" class="w-12 h-12"></i>
+                        <i data-lucide="car-front" class="w-12 h-12"></i>
                     </div>
-                    <div class="mb-6"><span class="text-6xl font-black">$500</span><span class="text-xl font-bold text-gray-300">/year</span></div>
+                    <div class="mb-6"><span class="membership-price text-6xl font-black">$500</span><span class="text-xl font-bold text-gray-300">/year</span></div>
                     <p class="font-bold text-gray-200 mb-6">Covers up to 3 enrolled vehicles with unlimited full synthetic oil changes every 5,000 miles minimum per vehicle.</p>
                     <ul class="space-y-3 font-semibold mb-8 flex-grow">
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0"></i> Full synthetic oil</li>
@@ -319,10 +443,10 @@
                             <p class="text-gray-700 font-semibold mt-2">Enter your details below and continue to secure checkout. Payment is processed by Stripe &mdash; the moment it clears, your digital membership card is emailed to you.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            <div><label class="font-bold uppercase text-sm tracking-wider">Name *</label><input required type="text" name="name" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
-                            <div><label class="font-bold uppercase text-sm tracking-wider">Email *</label><input required type="email" name="email" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
-                            <div><label class="font-bold uppercase text-sm tracking-wider">Phone *</label><input required type="tel" name="phone" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
-                            <div><label class="font-bold uppercase text-sm tracking-wider">Current Mileage *</label><input required type="number" min="0" name="currentMileage" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Name *</label><input required type="text" name="name" autocomplete="name" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Email *</label><input required type="email" name="email" autocomplete="email" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Phone *</label><input required type="tel" name="phone" autocomplete="tel" inputmode="tel" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
+                            <div><label class="font-bold uppercase text-sm tracking-wider">Current Mileage *</label><input required type="number" min="0" name="currentMileage" autocomplete="off" inputmode="numeric" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
                             <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Year *</label><input required type="number" min="1900" max="2035" name="vehicleYear" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
                             <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Make *</label><input required type="text" name="vehicleMake" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
                             <div><label class="font-bold uppercase text-sm tracking-wider">Vehicle Model *</label><input required type="text" name="vehicleModel" class="membership-input w-full border-2 border-black p-3 mt-2" /></div>
