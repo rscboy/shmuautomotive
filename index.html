@@ -627,6 +627,9 @@
             }
         }
 
+        // Google Apps Script endpoint (handles bookings)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec";
+
         // Form Handling Logic (Connected to Google Apps Script)
         async function handleFormSubmit(event) {
             event.preventDefault();
@@ -663,14 +666,22 @@
             submitBtn.innerHTML = 'Booking...';
 
             try {
-                await fetch("https://script.google.com/macros/s/AKfycbyZggRaWaV1rGu8yO67tdnzftWWY7NNlQHmPz9A3i4lNNRsAgtMzAd7KbIMExWfHdBl/exec", {
+                const response = await fetch(APPS_SCRIPT_URL, {
                     method: "POST",
-                    mode: "no-cors",
                     headers: {
                         "Content-Type": "text/plain;charset=utf-8"
                     },
                     body: JSON.stringify(data)
                 });
+
+                if (!response.ok) {
+                    throw new Error(`Booking endpoint returned ${response.status}`);
+                }
+
+                const result = await response.json();
+                if (!result || result.result !== 'success') {
+                    throw new Error(result?.message || 'Booking endpoint did not confirm success');
+                }
 
                 form.classList.add('hidden');
 
