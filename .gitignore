@@ -1,0 +1,14 @@
+# Local-only tooling — NOT part of the public website
+.DS_Store
+.claude/
+
+# Invoice builder + customer data (contains PII — never publish)
+customer-records.json
+invoice-builder.html
+invoice-lainey-dorrian.html
+invoice.html
+invoice.tex
+server.js
+
+# Apps Script source (deployed separately via script.google.com)
+booking-apps-script.gs
