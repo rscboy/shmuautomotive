@@ -144,6 +144,29 @@
             color: #fff;
         }
 
+        .site-header {
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+            will-change: transform;
+        }
+
+        .site-header.is-hidden {
+            transform: translateY(-100%);
+        }
+
+        .mobile-menu-toggle {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        .mobile-menu-toggle .menu-close-icon,
+        .mobile-menu-toggle[aria-expanded="true"] .menu-open-icon {
+            display: none;
+        }
+
+        .mobile-menu-toggle[aria-expanded="true"] .menu-close-icon {
+            display: block;
+        }
+
         .site-nav a,
         #membership-form button,
         #membership-form input,
@@ -174,13 +197,28 @@
                 padding-bottom: 0.65rem;
             }
 
+            .site-nav-shell {
+                align-items: stretch;
+            }
+
+            .mobile-brand-row {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
             .site-nav {
-                display: grid;
+                display: none;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.5rem;
                 width: 100%;
                 font-size: 0.75rem;
                 letter-spacing: 0.04em;
+            }
+
+            .site-nav.is-open {
+                display: grid;
             }
 
             .site-nav a {
@@ -235,6 +273,12 @@
             }
         }
 
+        @media (min-width: 641px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -263,11 +307,17 @@
         </div>
         
         <div class="site-nav-shell max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex flex-col items-center md:items-start text-center md:text-left cursor-pointer hover:opacity-80 transition-opacity" onclick="window.location.href='index.html'">
-                <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-12 sm:h-16 object-contain mix-blend-multiply">
+            <div class="mobile-brand-row">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left cursor-pointer hover:opacity-80 transition-opacity" onclick="window.location.href='index.html'">
+                    <img src="https://i.ibb.co/B5fmCZDS/Screenshot-2026-04-23-at-10-51-12-PM.png" alt="Shmu's Automotive" class="h-12 sm:h-16 object-contain mix-blend-multiply">
+                </div>
+                <button type="button" class="mobile-menu-toggle md:hidden border-2 border-black bg-white p-2" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu">
+                    <i data-lucide="menu" class="menu-open-icon w-6 h-6"></i>
+                    <i data-lucide="x" class="menu-close-icon w-6 h-6"></i>
+                </button>
             </div>
             
-            <nav class="site-nav flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
+            <nav id="primary-navigation" class="site-nav flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold uppercase tracking-wider items-center">
                 <a href="index.html#services" class="hover:underline underline-offset-4 decoration-2 transition-all">The Work</a>
                 <a href="index.html#pricing" class="hover:underline underline-offset-4 decoration-2 transition-all">The Bill</a>
                 <a href="membership.html" class="hover:underline underline-offset-4 decoration-2 transition-all">Membership</a>
@@ -514,6 +564,8 @@
             const animatedElements = document.querySelectorAll('.animate-on-scroll');
             animatedElements.forEach(el => observer.observe(el));
 
+            initializeMobileHeader();
+
             // Typewriter Effect Logic
             const typewriterEl = document.getElementById('typewriter-text');
             if (typewriterEl) {
@@ -552,6 +604,49 @@
             // Reflect the result of a Stripe Checkout round-trip, if any
             handleMembershipReturn();
         });
+
+
+        function initializeMobileHeader() {
+            const header = document.querySelector('.site-header');
+            const nav = document.querySelector('.site-nav');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (!header || !nav || !toggle) return;
+
+            const closeMenu = () => {
+                nav.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Open navigation menu');
+            };
+
+            toggle.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', String(isOpen));
+                toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+                header.classList.remove('is-hidden');
+            });
+
+            nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (window.matchMedia('(min-width: 641px)').matches) {
+                    header.classList.remove('is-hidden');
+                    return;
+                }
+
+                const currentScrollY = window.scrollY;
+                const scrollingDown = currentScrollY > lastScrollY;
+                const menuIsOpen = nav.classList.contains('is-open');
+
+                if (scrollingDown && currentScrollY > header.offsetHeight && !menuIsOpen) {
+                    header.classList.add('is-hidden');
+                } else {
+                    header.classList.remove('is-hidden');
+                }
+
+                lastScrollY = currentScrollY;
+            }, { passive: true });
+        }
 
         // Availability config
         const AVAILABLE_WEEKDAYS = [5, 6, 0]; // Fri, Sat, Sun (0 = Sunday)
